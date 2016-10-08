@@ -7,7 +7,17 @@ using std::vector;
 int get_majority_element(vector<int> &a, int left, int right) {
   if (left == right) return -1;
   if (left + 1 == right) return a[left];
-  //write your code here
+  if ()
+
+  else {
+
+    int major_l = get_majority_element(a , left , right/2);
+    int major_r = get_majority_element(a, right/2+1 , right);
+
+    if()
+
+  }
+
   return -1;
 }
 
