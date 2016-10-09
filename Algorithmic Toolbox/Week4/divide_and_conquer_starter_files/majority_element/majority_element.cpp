@@ -49,5 +49,17 @@ int main() {
   for (size_t i = 0; i < a.size(); ++i) {
     std::cin >> a[i];
   }
-  std::cout << (get_majority_element(a, 0, a.size()-1) != -1) << '\n';
+  int count = 0;
+  int number = get_majority_element(a, 0, a.size()-1);
+  
+  if (number == -1) std::cout<<0;
+  else {
+	 for(int i = 0; i < a.size() ; i++){
+	 	if (number == a[i]) 
+	 		count++;
+	 }
+  }
+  if (count > n/2 )
+  	std::cout<<1;
+  else std::cout<<0;
 }
