@@ -25,8 +25,7 @@ int get_majority_element(vector<int> &a, int left, int right) {
 			if(major_l == a[i]) {
 				return major_l;
 			}
-		}
-		return -1;	
+		}	
 	}
 	
 	if ( major_r >= 0){
@@ -35,8 +34,8 @@ int get_majority_element(vector<int> &a, int left, int right) {
 				return major_r;
 			}
 		}
-		return -1;
 	}
+	else return -1;
 	
   }
 }
