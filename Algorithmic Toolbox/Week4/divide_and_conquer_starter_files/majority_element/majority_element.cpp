@@ -58,8 +58,9 @@ int main() {
 	 	if (number == a[i]) 
 	 		count++;
 	 }
+	 if (count > n/2 )
+  		std::cout<<1;
+  	 else std::cout<<0;
   }
-  if (count > n/2 )
-  	std::cout<<1;
-  else std::cout<<0;
+  
 }
