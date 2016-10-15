@@ -11,6 +11,7 @@ class TreeHeight {
 public:
 		
   void read() {
+  	h = 0;
     std::cin >> n;
     parent.resize(n);
     height.resize(n);
@@ -26,7 +27,7 @@ public:
 	for( int i = 0 ; i < n ; i++) {
 		if (height[i] == -1){
 			height[i] = compute_height_of_node(parent[i]);
-			std::cout<<"height : "<<height[i]<<std::endl;
+			//std::cout<<"height : "<<height[i]<<std::endl;
 			h = std::max(h, height[i]);
 			}	
 		}
