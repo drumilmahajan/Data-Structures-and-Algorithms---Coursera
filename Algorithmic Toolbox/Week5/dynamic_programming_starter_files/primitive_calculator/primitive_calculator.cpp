@@ -4,6 +4,25 @@
 
 using std::vector;
 
+struct Node {
+	int key_value; // value of the node
+	Node *left; // left node will contain result of num -1 operation
+	Node *middle; // middle node will contain result of /2 operation if divisible
+	Node *right; // right node will contain result of /3 operation if divisible
+};
+
+
+vector<int> optimum_sequence_dp(int n){
+	std::vector<int> sequence;
+	Node root = new Node;
+	node->
+	
+	while(n >= 1) {
+		
+	}
+	
+}
+
 vector<int> optimal_sequence(int n) {
   std::vector<int> sequence;
   while (n >= 1) {
