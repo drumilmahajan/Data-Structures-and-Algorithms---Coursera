@@ -2,75 +2,104 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <climits>
 
 using std::vector;
 
-std::map <int, int> recursion_values;
+std::map <int, vector<int> > recursion_values;
 
-int optimal_sequence_dp(int n){
-	
-	vector<int> sequence; 
+vector<int> optimal_sequence_dp(int n){
 	
 	// Reccursion base cases
-	if(n == 0)
-		return 0;
-	else if ( n == 1 )
-		return 0;
-	else if ( n == 2 || n == 3) 
-		return 1;
-
+	if ( n == 1 ) {
+		vector<int> sequence; 
+		return sequence ;
+	}
+	else if ( n == 2 || n == 3) {
+		vector<int> sequence; 
+		sequence.push_back(1);
+		sequence.insert(sequence.begin(), n);
+		return sequence;
+	}
 	else {
 		
-		int n_3_op = 2147483647; 
-		int n_2_op = 2147483647; 
-		int n_1_op = 2147483647; 
+		// Initialized with maximum possible value of integer
+		vector<int> n_3_op; 
+		vector<int> n_2_op; 
+		vector<int> n_1_op;  
 		
+		// Case when number is divided by 3
 		if (n%3 == 0) {
+			
+			// quotient
 			int n_3_q = n/3;
 			
+			// If recursion of quotient is never made then make the call and add the recursion value to the map
 			if (recursion_values.find(n_3_q) == recursion_values.end()) {
-				n_3_op = optimal_sequence_dp(n_3_q);
+				
+				vector<int> n_3_op = optimal_sequence_dp(n_3_q);
 				recursion_values.insert({n_3_q, n_3_op});
 			}
+			// If recursion has already been made then use the value of recursion from the map
 			else {
 				n_3_op = recursion_values.find(n_3_q)->second;	
 			}
 		}
 		
+		// Case when number is divisible by 2
 		if (n%2 == 0) {
+			// Quotient
 			int n_2_q = n/2;
 			
+			// If recursion of quotient is never made then make the call and add the recursion value to the map
 			if (recursion_values.find(n_2_q) == recursion_values.end()) {
 				n_2_op = optimal_sequence_dp(n_2_q);
 				recursion_values.insert({n_2_q, n_2_op});
 			}
+			
+			// If recursion has already been made then use the value of recursion from the map
 			else {
 				n_2_op = recursion_values.find(n_2_q)->second;	
 			}
 		}
 
+		// Case for num - 1; 
 		int n_1_q = n-1;
+		
+		// If recursion of n - 1 is not made then make the call and save the return value to the map
 		if (recursion_values.find(n_1_q) == recursion_values.end()) {
 				n_1_op = optimal_sequence_dp(n_1_q);
 				recursion_values.insert({n_1_q, n_1_op});
 		}
+		
+		// If recursion call of n-1 already made then use the value from the map
 		else {
 			n_1_op = recursion_values.find(n_1_q)->second;	
 		}
 		
-		int minimum = std::min(n_3_op,std::min(n_2_op,n_1_op));
+		int size_3 = n_3_op.size();
+		if (size_3 == 0)
+			size_3 = INT_MAX; 
+		int size_2 = n_2_op.size();
+		if (size_2 == 0)
+			size_2 = INT_MAX;
+		int size_1 = n_1_op.size();
+		if (size_1 == 0)
+			size_1 = INT_MAX;
+
+		int minimum = std::min(size_3,std::min(size_2,size_1));
 		
-		if(minimum == n_3_op){
-			sequence.push_back(n/3);
-		} else if(minimum == n_2_op) {
-			sequence.push_back(n/2);
+		if(minimum == size_3){
+			n_3_op.insert(n_3_op.begin(), n);
+			return n_3_op;
+		} else if(minimum == size_2) {
+			n_2_op.insert(n_2_op.begin(), n);
+			return n_2_op;
 		} else {
-			sequence.push_back(n-1);
+			n_1_op.insert(n_1_op.begin(), n);
+			return n_1_op;
 		}
-		
-		//std::cout<<"else called"<<std::endl;
-		return 1 + minimum; 
-		
+
 	}	 	
 	
 }
@@ -80,14 +109,13 @@ int main() {
   int n;
   std::cin >> n;
   //sequence.push_back(n);
-  int min_number = optimal_sequence_dp(n);	
-  //std::cout << sequence.size() - 1 << std::endl;
+  vector<int> sequence = optimal_sequence_dp(n);	
+  std::cout << sequence.size() - 1 << std::endl;
   
-  //for (size_t i = 0; i < sequence.size(); ++i) {
-  //  std::cout << sequence[i] << " ";
-  //}
-  
-  std::cout << min_number << " ";
+  for (int i = (sequence.size() - 1); i >=0 ; i--) {
+  	//int i = (sequence.size() - 1);
+    std::cout << sequence[i] << " ";
+  }
   
   return 0;
 }
