@@ -8,7 +8,9 @@ using std::vector;
 std::map <int, int> recursion_values;
 
 int optimal_sequence_dp(int n){
-
+	
+	vector<int> sequence; 
+	
 	// Reccursion base cases
 	if(n == 0)
 		return 0;
@@ -58,6 +60,14 @@ int optimal_sequence_dp(int n){
 		
 		int minimum = std::min(n_3_op,std::min(n_2_op,n_1_op));
 		
+		if(minimum == n_3_op){
+			sequence.push_back(n/3);
+		} else if(minimum == n_2_op) {
+			sequence.push_back(n/2);
+		} else {
+			sequence.push_back(n-1);
+		}
+		
 		//std::cout<<"else called"<<std::endl;
 		return 1 + minimum; 
 		
@@ -69,13 +79,15 @@ int optimal_sequence_dp(int n){
 int main() {
   int n;
   std::cin >> n;
-  //vector<int> sequence = optimal_sequence(n);
-  int sequence = optimal_sequence_dp(n);	
+  //sequence.push_back(n);
+  int min_number = optimal_sequence_dp(n);	
   //std::cout << sequence.size() - 1 << std::endl;
-  /*
-  for (size_t i = 0; i < sequence.size(); ++i) {
-    std::cout << sequence[i] << " ";
-  }
-  */
-  std::cout << sequence << " ";
+  
+  //for (size_t i = 0; i < sequence.size(); ++i) {
+  //  std::cout << sequence[i] << " ";
+  //}
+  
+  std::cout << min_number << " ";
+  
+  return 0;
 }
