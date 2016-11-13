@@ -13,6 +13,7 @@ vector<int> optimal_sequence_dp(int n){
 	// Reccursion base cases
 	if ( n == 1 ) {
 		vector<int> sequence; 
+		sequence.push_back(1);
 		return sequence ;
 	}
 	else if ( n == 2 || n == 3) {
