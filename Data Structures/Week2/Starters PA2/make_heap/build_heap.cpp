@@ -33,28 +33,33 @@ class HeapBuilder {
   void GenerateSwaps() {
     swaps_.clear();
 
-    for (int i = int(std::floor(data_.size()/2)); i > 0; i--) {
-        int minimum = 0;
-        if (data_[i] < data_[2*i]) {
-            minimum = i;
-        }
-        else {
-            minimum = 2*i;
-        }
-        if (data_[2*i + 1] <= data_.size()) {
-            if ( data_[2*i + 1] < data_[minimum] ){
-                minimum = 2*i + 1;
-            }
-        }
-        if (minimum == 2*i || minimum == 2*i + 1){
-                pair<int, int> p;
-                p.first = i;
-                p.second = minimum;
-                swaps_.push_back(p);
-                swap(data_[i], data_[minimum]);
-        }
+    for (int i = int(std::floor(data_.size()/2)) - 1 ; i >= 0; i--) {
+        shift_down(i);
     }
 }
+
+ void shift_down(int i) {
+
+        int left = 2*i + 1;
+        int right = left + 1;
+        int minimum = i;
+
+        if (data_[minimum] > data_[left] && left<= data_.size()) {
+            minimum = left;
+        }
+
+        if ( data_[right] < data_[minimum] && right <= data_.size() ){
+            minimum = right;
+        }
+        if ( i != minimum ){
+            pair<int, int> p;
+            p.first = i;
+            p.second = minimum;
+            swaps_.push_back(p);
+            swap(data_[i], data_[minimum]);
+            shift_down(minimum);
+        }
+ }
 
  public:
   void Solve() {
