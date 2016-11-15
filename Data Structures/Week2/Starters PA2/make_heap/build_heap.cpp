@@ -33,7 +33,7 @@ class HeapBuilder {
   void GenerateSwaps() {
     swaps_.clear();
 
-    for (int i = int(std::floor(data_.size())); i >= 0; i--) {
+    for (int i = int(std::floor(data_.size())); i > 0; i--) {
         int minimum = 0;
         if (data_[i] < data_[2*i]) {
             minimum = i;
